@@ -99,7 +99,7 @@ const sample = handleActions(
       ...state,
       loading: {
         ...state.loading,
-        GET_POST: false, // 요청 시작
+        GET_USERS: false, // 요청 시작
       },
       users: action.payload,
     }),
@@ -107,7 +107,7 @@ const sample = handleActions(
       ...state,
       loading: {
         ...state.loading,
-        GET_POST: false, // 요청 시작
+        GET_USERS: false, // 요청 시작
       },
     }),
   },
