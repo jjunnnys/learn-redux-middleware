@@ -1,5 +1,6 @@
 import { handleActions } from 'redux-actions';
 import * as api from '../lib/api';
+import createRequestThunk from '../lib/createRequestThunk';
 
 /* 1. 액션 타입을 선언 */
 
@@ -14,42 +15,8 @@ const GET_USERS_FAILURE = 'sample/GET_USERS_FAILURE';
 
 /* 2. thunk 함수 생성 */
 
-// thunk 함수 내부에서는 시작할 때, 성공했을 때, 실패했을 때 다른 액션을 디스패치한다.
-export const getPost = (id) => async (dispatch) => {
-  dispatch({ type: GET_POST }); // 요청을 시작한 것을 알림
-  try {
-    const response = await api.getPost(id);
-    dispatch({
-      type: GET_POST_SUCCESS,
-      payload: response.data,
-    }); // 요청 성공
-  } catch (error) {
-    dispatch({
-      type: GET_POST_FAILURE,
-      payload: error,
-      error: true,
-    }); // 에러 발생
-    throw error; // 나중에 컴포넌트단에서 에러를 조회할 수 있게 해 줌
-  }
-};
-
-export const getUsers = () => async (dispatch) => {
-  dispatch({ type: GET_USERS }); // 요청을 시작한 것을 알림
-  try {
-    const response = await api.getUsers();
-    dispatch({
-      type: GET_USERS_SUCCESS,
-      payload: response.data,
-    }); // 요청 성공
-  } catch (error) {
-    dispatch({
-      type: GET_USERS_FAILURE,
-      payload: error,
-      error: true,
-    }); // 에러 발생
-    throw error; // 나중에 컴포넌트단에서 에러를 조회할 수 있게 해 줌
-  }
-};
+export const getPost = createRequestThunk(GET_POST, api.getPost);
+export const getUsers = createRequestThunk(GET_USERS, api.getUsers);
 
 /* 3. 초기 상태 선언 */
 
