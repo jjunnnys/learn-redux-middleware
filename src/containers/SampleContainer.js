@@ -12,9 +12,17 @@ const SampleContainer = ({
   loadingUsers,
 }) => {
   useEffect(() => {
-    getPost(1);
-    getUsers();
+    const fn = async () => {
+      try {
+        await getPost(1);
+        await getUsers();
+      } catch (error) {
+        console.log(error); // 에러 값 조회
+      }
+    };
+    fn();
   }, [getPost, getUsers]);
+
   return (
     <Sample
       post={post}
@@ -26,11 +34,11 @@ const SampleContainer = ({
 };
 
 export default connect(
-  ({ sample }) => ({
+  ({ sample, loading }) => ({
     post: sample.post,
     users: sample.users,
-    loadingPost: sample.loading.GET_POST,
-    loadingUsers: sample.loading.GET_USERS,
+    loadingPost: loading['sample/GET_POST'],
+    loadingUsers: loading['sample/GET_USERS'],
   }),
   {
     getPost,
