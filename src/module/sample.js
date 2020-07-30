@@ -44,7 +44,7 @@ function* getPostSaga(action) {
 function* getUsersSaga() {
   yield put(startLoading(GET_USERS)); // 로딩 시작
   try {
-    const post = yield call(api.getPost);
+    const post = yield call(api.getUsers);
     yield put({
       type: GET_USERS_SUCCESS,
       payload: post.data,
@@ -71,7 +71,7 @@ const initialState = {
   users: null,
 };
 
-/* 4. 리듀서 작성 */
+/* 5. 리듀서 작성 */
 
 const sample = handleActions(
   {
