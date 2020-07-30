@@ -1,5 +1,5 @@
 import { handleActions, createAction } from 'redux-actions';
-import { delay, put, takeEvery, takeLatest } from 'redux-saga';
+import { delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 const INCREASE = 'counter/INCREASE';
 const DECREASE = 'counter/DECREASE';
@@ -31,7 +31,7 @@ function* decreaseSaga() {
   yield put(decrease()); // 특정 액션을 디스패치
 }
 
-function* counterSaga() {
+export function* counterSaga() {
   yield takeEvery(INCREASE_ASYNC, increaseSaga);
   yield takeLatest(DECREASE_ASYNC, decreaseSaga);
 }
